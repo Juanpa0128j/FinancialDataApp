@@ -1,0 +1,15 @@
+{% extends 'home.html' %}
+{% block content %}
+<h2>Inserte el nombre del tag (ó tags, separados con una coma y un espacio) que desea crear: </h2>
+<form method="post">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">Enviar</button>
+</form>
+
+<script>
+    {% if comprobation_create_tag %}
+        alert('Debes verificar que este tag no se haya añadido anteriormente ó que el formato sea correcto.');
+    {% endif %}
+</script>
+{% endblock %}
