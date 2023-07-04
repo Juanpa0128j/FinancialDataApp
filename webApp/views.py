@@ -1,5 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
-from django.http import JsonResponse
+from django.shortcuts import render, redirect
 import json
 from .forms import CreateTag
 from .models import Tag
@@ -256,16 +255,16 @@ class Database_Tags:
             insiders=data_tag[3],
             price=data_tag[4],
             t_price=data_tag[5],
-            upside=data_tag[5],
-            t_pe=data_tag[6],
-            f_pe=data_tag[7],
-            t_eps=data_tag[8],
-            f_eps=data_tag[9],
-            roa=data_tag[10],
-            roe=data_tag[11],
-            profit_m=data_tag[12],
-            my_score=data_tag[13],
-            my_count=data_tag[14],
+            upside=data_tag[6],
+            t_pe=data_tag[7],
+            f_pe=data_tag[8],
+            t_eps=data_tag[9],
+            f_eps=data_tag[10],
+            roa=data_tag[11],
+            roe=data_tag[12],
+            profit_m=data_tag[13],
+            my_score=data_tag[14],
+            my_count=data_tag[15],
         )
 
     def consult_tags_by_filter(self, filter):
