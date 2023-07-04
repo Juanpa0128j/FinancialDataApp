@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-44@ecjouz^)9#_z8%r)s7q+yfd4s2q)k#=1_%g=i2havrn3k+*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
-ALLOWED_HOSTS = ['gemejiar.pythonanywhere.com.']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -77,14 +77,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'data_tags_db': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gemejiar$data_tags_db',
-        'HOST': 'gemejiar.mysql.pythonanywhere-services.com',
-        'PASSWORD': 'juanpa0128j',
-        'USER': 'gemejiar',
-        'PORT': 3306,
-    },
 }
 
 
@@ -123,7 +115,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = "gemejiar.pythonanywhere.com/webApp/static"
+#STATIC_ROOT = "gemejiar.pythonanywhere.com/webApp/static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

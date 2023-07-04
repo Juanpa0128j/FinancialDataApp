@@ -19,13 +19,13 @@ def data_ordering(request):
         if filter_selected[-1] == "s":
             for i in range(1, len(financial_data_tags)):
                 for j in range(i + 1, len(financial_data_tags)):
-                    if (float(financial_data_tags[j][index]) > float(financial_data_tags[i][index])):
+                    if (float(financial_data_tags[j][index]) > float(financial_data_tags[i][index]) and float(financial_data_tags[j][index]) != -404 and float(financial_data_tags[i][index]) != -404):
                         financial_data_tags[i], financial_data_tags[j] = financial_data_tags[j], financial_data_tags[i]
             
         elif filter_selected[-1] == "i":
             for i in range(1, len(financial_data_tags)):
                 for j in range(i + 1, len(financial_data_tags)):
-                    if (float(financial_data_tags[j][index]) < float(financial_data_tags[i][index])):
+                    if (float(financial_data_tags[j][index]) < float(financial_data_tags[i][index]) and float(financial_data_tags[j][index]) != -404 and float(financial_data_tags[i][index]) != -404):
                         financial_data_tags[i], financial_data_tags[j] = financial_data_tags[j], financial_data_tags[i]      
         
         Aux.t = financial_data_tags
@@ -115,11 +115,11 @@ def home(request):
 
 class Database_Tags():
     def consult_all_tags_saved(self):
-        return(Tag.objects.using('data_tags_db').all())
+        return(Tag.objects.all())
     def create_new_tag(self, name):
-        Tag.objects.using('data_tags_db').create(nombre = name)
+        Tag.objects.create(nombre = name)
     def consult_tags_by_filter(self, filter):
-        return(Tag.objects.using('data_tags_db').filter(nombre = filter))
+        return(Tag.objects.filter(nombre = filter))
     def delete_tag(self, queryset):
         queryset.delete()
 
