@@ -71,6 +71,12 @@ def delete_tag(request):
 def create_tag(request):
     inserted_symbol = str(request.POST.get("symbol"))
     tags_database_data = list(db_tags.consult_all_tags_saved().values_list())
+    if len(Auxiliar_Class.auxiliar_table) == 0 or len(
+        Auxiliar_Class.auxiliar_table
+    ) != len(tags_database_data):
+        Auxiliar_Class.auxiliar_table = tags_database_data
+    else:
+        tags_database_data = Auxiliar_Class.auxiliar_table
     form_symbol = CreateTag(request.POST)
 
     if (
