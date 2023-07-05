@@ -31,8 +31,9 @@ def data_ordering(request):
         if filter_selected[-1] == "s":
             for i in range(0, len(Auxiliar_Class.auxiliar_table)):
                 for j in range(i + 1, len(Auxiliar_Class.auxiliar_table)):
-                    if float(Auxiliar_Class.auxiliar_table[j][index_filter]) > float(
-                        Auxiliar_Class.auxiliar_table[i][index_filter]
+                    if (
+                        Auxiliar_Class.auxiliar_table[j][index_filter]
+                        > Auxiliar_Class.auxiliar_table[i][index_filter]
                     ):
                         (
                             Auxiliar_Class.auxiliar_table[i],
@@ -45,8 +46,9 @@ def data_ordering(request):
         elif filter_selected[-1] == "i":
             for i in range(0, len(Auxiliar_Class.auxiliar_table)):
                 for j in range(i + 1, len(Auxiliar_Class.auxiliar_table)):
-                    if float(Auxiliar_Class.auxiliar_table[j][index_filter]) < float(
-                        Auxiliar_Class.auxiliar_table[i][index_filter]
+                    if (
+                        Auxiliar_Class.auxiliar_table[j][index_filter]
+                        < Auxiliar_Class.auxiliar_table[i][index_filter]
                     ):
                         (
                             Auxiliar_Class.auxiliar_table[i],
