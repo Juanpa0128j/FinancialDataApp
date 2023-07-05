@@ -26,6 +26,7 @@ def financeAnalisis(symbol):
             existant_info_tags[info] = ticker.info[info]
         except:
             existant_info_tags[info] = -404
+    print(existant_info_tags)
     for key in existant_info_tags:
         if (
             (key == "heldPercentInsiders" and existant_info_tags[key] != -404)
@@ -63,12 +64,13 @@ def financeAnalisis(symbol):
     ):
         x = 0
         y = 0
-    if existant_info_tags["forwardPE"] < existant_info_tags["trailingPE"]:
-        count += 1
-        x = 0.04
-    if existant_info_tags["forwardEps"] > existant_info_tags["trailingEps"]:
-        count += 1
-        y = 0.03
+
+        if existant_info_tags["forwardPE"] < existant_info_tags["trailingPE"]:
+            count += 1
+            x = 0.04
+        if existant_info_tags["forwardEps"] > existant_info_tags["trailingEps"]:
+            count += 1
+            y = 0.03
         row_with_tag_data.append(
             0.08 * 20 * (existant_info_tags["debtToEquity"] / 100)
             + 0.04 * 2 * existant_info_tags["heldPercentInsiders"] * 100
@@ -133,4 +135,4 @@ def financeAnalisis(symbol):
 
 
 if __name__ == "__main__":
-    print(financeAnalisis("GOOGL"))
+    print(financeAnalisis("CLFD"))
