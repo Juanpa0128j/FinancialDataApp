@@ -26,7 +26,6 @@ def financeAnalisis(symbol):
             existant_info_tags[info] = ticker.info[info]
         except:
             existant_info_tags[info] = -404
-    print(existant_info_tags)
     for key in existant_info_tags:
         if (
             (key == "heldPercentInsiders" and existant_info_tags[key] != -404)

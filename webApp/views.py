@@ -65,14 +65,14 @@ def delete_tag(request):
     if request.method == "POST":
         tag_symbols = json.loads(request.body)
         for tag_symbol in tag_symbols:
-            db_tags.delete_tag(db_tags.consult_tags_by_filter(tag_symbol))
+            Database_Tags.delete_tag(Database_Tags.consult_tags_by_filter(tag_symbol))
 
     return redirect("home", permanent=True)
 
 
 def create_tag(request):
     inserted_symbol = str(request.POST.get("symbol"))
-    tags_database_data = list(db_tags.consult_all_tags_saved().values_list())
+    tags_database_data = list(Database_Tags.consult_all_tags_saved().values_list())
     if len(Auxiliar_Class.auxiliar_table) == 0 or len(
         Auxiliar_Class.auxiliar_table
     ) != len(tags_database_data):
@@ -125,8 +125,10 @@ def create_tag(request):
             )
         elif len(inserted_symbol) <= 6:
             row_with_data = fn.financeAnalisis(inserted_symbol)
-            db_tags.create_new_tag(row_with_data)
-            tags_database_data = list(db_tags.consult_all_tags_saved().values_list())
+            Database_Tags.create_new_tag(row_with_data)
+            tags_database_data = list(
+                Database_Tags.consult_all_tags_saved().values_list()
+            )
             for row_with_data in tags_database_data:
                 if inserted_symbol in str(row_with_data[0]).upper():
                     if form_symbol.is_valid():
@@ -179,7 +181,7 @@ def create_tag(request):
                                 conf = False
                         if conf and names_fixed.count(" ") != len(names_fixed):
                             row_with_data = fn.financeAnalisis("".join(names_fixed))
-                            db_tags.create_new_tag(row_with_data)
+                            Database_Tags.create_new_tag(row_with_data)
                         names_fixed = []
                 if len(names_unfixed) == 0:
                     break
@@ -216,7 +218,7 @@ def create_tag(request):
 
 
 def home(request):
-    tags_database_data = list(db_tags.consult_all_tags_saved().values_list())
+    tags_database_data = list(Database_Tags.consult_all_tags_saved().values_list())
     if len(Auxiliar_Class.auxiliar_table) == 0 or len(
         Auxiliar_Class.auxiliar_table
     ) != len(tags_database_data):
@@ -252,10 +254,12 @@ def home(request):
 
 
 class Database_Tags:
-    def consult_all_tags_saved(self):
+    @classmethod
+    def consult_all_tags_saved(cls):
         return Tag.objects.all()
 
-    def create_new_tag(self, data_tag):
+    @classmethod
+    def create_new_tag(cls, data_tag):
         Tag.objects.create(
             symbol=data_tag[0],
             short_name=data_tag[1],
@@ -275,15 +279,26 @@ class Database_Tags:
             my_count=data_tag[15],
         )
 
-    def consult_tags_by_filter(self, filter):
+    @classmethod
+    def consult_tags_by_filter(cls, filter):
         return Tag.objects.filter(symbol=filter)
 
-    def delete_tag(self, queryset):
+    @classmethod
+    def delete_tag(cls, queryset):
         queryset.delete()
+
+    @classmethod
+    def update_tags_data(cls):
+        all_tags = list(cls.consult_all_tags_saved())
+        for tag in all_tags:
+            new_data = fn.financeAnalisis(tag.symbol)
+            i = 0
+            for field_to_modify in tag._meta.fields:
+                setattr(tag, field_to_modify.name, new_data[i])
+                print(tag, field_to_modify.name, new_data[i])
+                i += 1
+            tag.save()
 
 
 class Auxiliar_Class:
     auxiliar_table = []
-
-
-db_tags = Database_Tags()
