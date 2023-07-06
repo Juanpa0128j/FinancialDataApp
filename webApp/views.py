@@ -255,7 +255,6 @@ def home(request):
 
 def update_data_tags(request):
     Database_Tags.update_tags_data()
-    print(1)
     return redirect("/")
 
 
@@ -301,7 +300,6 @@ class Database_Tags:
             i = 0
             for field_to_modify in tag._meta.fields:
                 setattr(tag, field_to_modify.name, new_data[i])
-                print(tag, field_to_modify.name, new_data[i])
                 i += 1
             tag.save()
 
