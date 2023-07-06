@@ -74,10 +74,16 @@ function update_data_tags() {
   // Configurar la solicitud AJAX
   xhr.open(method, url, true);
   xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var response = JSON.parse(xhr.responseText);
+      // Realiza acciones con la respuesta recibida desde Python
+      setTimeout(function () {
+        location.reload();
+      }, 100);
+    }
+  };
 
   // Enviar la solicitud
   xhr.send();
-  setTimeout(function () {
-    location.reload();
-  }, 100);
 }

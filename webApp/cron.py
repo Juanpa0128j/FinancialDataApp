@@ -1,5 +1,6 @@
-from views import Database_Tags
+import requests
 
+url = "http://127.0.0.1:8000/update_data_tags"
 
-def automatic_tag_data_update():
-    Database_Tags.update_tags_data()
+# Realizar la solicitud y obtener la respuesta
+response = requests.get(url)

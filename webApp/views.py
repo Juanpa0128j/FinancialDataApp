@@ -3,6 +3,7 @@ import json
 from .forms import CreateTag
 from .models import Tag
 from .yahoo_query import financial_analysis as fn
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -255,7 +256,14 @@ def home(request):
 
 def update_data_tags(request):
     Database_Tags.update_tags_data()
-    return redirect("/")
+    Auxiliar_Class.auxiliar_table = []
+    if request.method == "POST":
+        response = {
+            "message": "OK",
+        }
+        return JsonResponse(response)
+    else:
+        return redirect(home, permanent=True)
 
 
 class Database_Tags:
