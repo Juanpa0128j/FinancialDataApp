@@ -8,7 +8,7 @@
       <script src="{% static 'js/main.js' %}"></script>
     </head>
     <body>
-        <h1 class="bienvenido_title" onclick="window.location.href='/'">Bienvenido</h1>
+        <h1 class="update_title" onclick="update_data_tags()">Actualizar datos de tags</h1>
         {% if len_tags == 0 %}
           <h2>No hay tags almacenados en el sistema. Considere crearlos presionando el siguiente botón. </h2>
         {% else %}

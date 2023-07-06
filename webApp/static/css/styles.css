@@ -1,9 +1,9 @@
-.bienvenido_title {
+.update_title {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.bienvenido_title:hover {
+.update_title:hover {
   color: rgb(88, 86, 86);
   cursor: pointer;
 }

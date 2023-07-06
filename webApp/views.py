@@ -253,6 +253,12 @@ def home(request):
     )
 
 
+def update_data_tags(request):
+    Database_Tags.update_tags_data()
+    print(1)
+    return redirect("/")
+
+
 class Database_Tags:
     @classmethod
     def consult_all_tags_saved(cls):
