@@ -25,7 +25,10 @@ def financeAnalisis(symbol):
         try:
             existant_info_tags[info] = ticker.info[info]
         except:
-            existant_info_tags[info] = -404
+            if info == "symbol":
+                existant_info_tags[info] = symbol + "-404"
+            else:
+                existant_info_tags[info] = -404
     for key in existant_info_tags:
         if (
             (key == "heldPercentInsiders" and existant_info_tags[key] != -404)
@@ -134,4 +137,19 @@ def financeAnalisis(symbol):
 
 
 if __name__ == "__main__":
-    print(financeAnalisis("CLFD"))
+    tags = [
+        "GOOGL",
+        "META",
+        "APR",
+        "MEDP",
+        "SFM",
+        "FRAGUAB",
+        "AEP",
+        "SDI",
+        "NA9",
+        "ULTA",
+        "METC",
+    ]
+
+    for tag in tags:
+        print(financeAnalisis(tag))
