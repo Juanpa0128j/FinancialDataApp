@@ -307,7 +307,8 @@ class Database_Tags:
             new_data = fn.financeAnalisis(tag.symbol)
             i = 0
             for field_to_modify in tag._meta.fields:
-                setattr(tag, field_to_modify.name, new_data[i])
+                if field_to_modify.name != "symbol":
+                    setattr(tag, field_to_modify.name, new_data[i])
                 i += 1
             tag.save()
 

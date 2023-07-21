@@ -1,12 +1,13 @@
 from django.db import models
 
+
 # Create your models here.
 class Tag(models.Model):
     symbol = models.CharField(primary_key=True, max_length=10)
     short_name = models.CharField(max_length=20, null=True)
     debt_equ = models.FloatField(default=0)
     insiders = models.FloatField(default=0)
-    price =  models.FloatField(default=0)
+    price = models.FloatField(default=0)
     t_price = models.FloatField(default=0)
     upside = models.FloatField(default=0)
     t_pe = models.FloatField(default=0)
