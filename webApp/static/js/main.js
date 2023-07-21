@@ -4,6 +4,13 @@ function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
+function select_all_checkboxes() {
+  const options = document.querySelectorAll("input[type='checkbox']");
+  options.forEach(function (option) {
+    option.checked = true;
+  });
+}
+
 function delete_tag() {
   const options = document.querySelectorAll("input[type='checkbox']");
   let at_least_one_selected = false;

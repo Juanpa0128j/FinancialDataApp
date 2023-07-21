@@ -15,9 +15,9 @@
           <div>
             <table class="table_tags">
               <tr>
-                <th class="th_td_tags">&#x2713</th>
+                <th class="th_td_tags"><button class="button_select_all_tags" onclick="select_all_checkboxes()">&#x2713</button></th>
                 {% for header_title in headers_title_list %}
-                <th class="th_td_tags" style="background-color: #4CAE51; color: white; font-weight: bold;">{{header_title}} <button onclick="data_ordering('{{header_title}}s')" name="filters" class="button_filters">&#8593;</button><button onclick="data_ordering('{{header_title}}i')" name="filters" class="button_filters">&#8595;</button></th>
+                <th class="th_td_tags" style="background-color: #4CAE51; color: white; font-weight: bold;">{{header_title}} <button onclick="data_ordering('{{header_title}}s')" name="filters" class="button_classify_filters">&#8593;</button><button onclick="data_ordering('{{header_title}}i')" name="filters" class="button_classify_filters">&#8595;</button></th>
                 {% endfor %}
               </tr>
               {% for row_with_data in financial_data_tags %}

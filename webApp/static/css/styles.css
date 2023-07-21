@@ -11,6 +11,16 @@
   color: rgb(88, 86, 86);
   cursor: pointer;
 }
+.button_select_all_tags {
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid black;
+  cursor: pointer;
+}
+.button_select_all_tags:hover {
+  background-color: rgb(88, 86, 86);
+  color: white;
+  cursor: pointer;
+}
 .table_tags {
   border-collapse: collapse;
 }
@@ -26,7 +36,7 @@
 .button_table {
   margin-top: 10px;
 }
-.button_filters {
+.button_classify_filters {
   margin: 1px;
   width: 20px;
   height: 20px;
@@ -36,7 +46,7 @@
   border: 1px solid #000;
   border-radius: 5px;
 }
-.button_filters:hover {
+.button_classify_filters:hover {
   background-color: white;
   color: black;
   cursor: pointer;

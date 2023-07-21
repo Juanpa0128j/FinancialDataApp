@@ -26,7 +26,7 @@ def financeAnalisis(symbol):
             existant_info_tags[info] = ticker.info[info]
         except:
             if info == "symbol":
-                existant_info_tags[info] = symbol + "-404"
+                existant_info_tags[info] = symbol
             else:
                 existant_info_tags[info] = -404
     for key in existant_info_tags:
