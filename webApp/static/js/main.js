@@ -7,7 +7,11 @@ function getCookie(name) {
 function select_all_checkboxes() {
   const options = document.querySelectorAll("input[type='checkbox']");
   options.forEach(function (option) {
-    option.checked = true;
+    if (option.checked) {
+      option.checked = false;
+    } else {
+      option.checked = true;
+    }
   });
 }
 
@@ -90,7 +94,6 @@ function update_data_tags() {
       }, 100);
     }
   };
-
   // Enviar la solicitud
   xhr.send();
 }
