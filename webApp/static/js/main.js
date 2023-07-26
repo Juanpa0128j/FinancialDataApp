@@ -64,7 +64,7 @@ function deploy_entry_field_category() {
     input_field.id = "new_category_field";
     const new_button_submit = document.createElement("button");
     new_button_submit.id = "button_submit_category";
-    new_button_submit.textContent = "Enviar";
+    new_button_submit.textContent = "Submit";
     new_button_submit.addEventListener("click", add_new_category)
     container.style.display = "grid";
     container.style.gridTemplateColumns = "3fr 1fr";
