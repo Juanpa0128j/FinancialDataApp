@@ -1,6 +1,6 @@
 {% extends 'home.html' %}
 {% block content %}
-<h2>Inserte el nombre del tag (ó tags, separados con una coma y un espacio) que desea crear: </h2>
+<h2>Insert the name of the tag (or tags, separated by a comma and a space) that you want to create: </h2>
 <form method="post">
     {% csrf_token %}
     {{form}}

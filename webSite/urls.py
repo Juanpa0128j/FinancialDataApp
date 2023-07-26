@@ -16,13 +16,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webApp.views import create_tag, delete_tag, home, data_ordering, update_data_tags
+from webApp.views import (
+    create_tag,
+    delete_tag,
+    home,
+    tag_ordering,
+    update_tag,
+    delete_category,
+    visualize_category,
+    delete_tag_from_category,
+    add_tag_to_category,
+    transfer_tag_between_categories,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home, name="home"),
     path("create_tag/", create_tag),
+    path("visualize_category/", visualize_category, name="visualize_category"),
     path("delete_tag/", delete_tag),
-    path("data_ordering/", data_ordering),
-    path("update_data_tags/", update_data_tags),
+    path("delete_category/", delete_category),
+    path("tag_ordering/", tag_ordering),
+    path("update_tag/", update_tag),
+    path("delete_tag_from_category/", delete_tag_from_category),
+    path("add_tag_to_category/", add_tag_to_category),
+    path("transfer_tag_between_categories/", transfer_tag_between_categories),
 ]

@@ -1,97 +1,213 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-      <title>Sistema de análisis financiero</title>
-      <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
-      <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-      <script src="{% static 'js/main.js' %}"></script>
-    </head>
-    <body>
-        <h1 class="update_title" onclick="update_data_tags()">Actualizar datos de tags</h1>
-        {% if len_tags == 0 %}
-          <h2>No hay tags almacenados en el sistema. Considere crearlos presionando el siguiente botón. </h2>
-        {% else %}
-          <div>
-            <table class="table_tags">
-              <tr>
-                <th class="th_td_tags"><button class="button_select_all_tags" onclick="select_all_checkboxes()">&#x2713</button></th>
-                {% for header_title in headers_title_list %}
-                <th class="th_td_tags" style="background-color: #4CAE51; color: white; font-weight: bold;">{{header_title}} <button onclick="data_ordering('{{header_title}}s')" name="filters" class="button_classify_filters">&#8593;</button><button onclick="data_ordering('{{header_title}}i')" name="filters" class="button_classify_filters">&#8595;</button></th>
-                {% endfor %}
-              </tr>
-              {% for row_with_data in financial_data_tags %}
-              <tr>
-                <td class="th_td_tags"><input class="tags_checkboxes" type="checkbox" name="tags_checkboxes_values" value={{row_with_data.0}}></td> 
-                  {% for data in row_with_data %}
-                    {% if data == -404 %}
-                      <td class="th_td_tags"  style="background-color: #aeaeae;">{{data}}</td>  
-                    {% elif forloop.counter0 == 2 and data >= -403.999 and data <= 0.999 %}
-                      <td class="th_td_tags" style="background-color: lightgreen;">{{data}}</td>  
-                    {% elif forloop.counter0 == 2 and data >= 1 and data <= 1.999 %}
-                      <td class="th_td_tags" style="background-color: #f2f277;">{{data}}</td>
-                    {% elif forloop.counter0 == 2 and data >= 2 %}
-                      <td class="th_td_tags" style="background-color: #e87777;">{{data}}</td>  
-                    {% elif forloop.counter0 == 3 and data >= -403.999 and data <= 1 %}
-                      <td class="th_td_tags" style="background-color: #e87777;">{{data}}%</td>  
-                    {% elif forloop.counter0 == 3 and data >= 1.001 and data <= 4.999 %}
-                      <td class="th_td_tags" style="background-color: #f2f277;">{{data}}%</td>
-                    {% elif forloop.counter0 == 3 and data >= 5 %}
-                      <td class="th_td_tags" style="background-color: lightgreen;">{{data}}%</td>
-                    {% elif forloop.counter0 == 6 and data >= -403.999 and data <= 24.999 %}
-                      <td class="th_td_tags" style="background-color: #e87777;">{{data}}%</td>  
-                    {% elif forloop.counter0 == 6 and data >= 25 and data <= 49.999 %}
-                      <td class="th_td_tags" style="background-color: #f2f277;">{{data}}%</td>
-                    {% elif forloop.counter0 == 6 and data >= 50 %}
-                      <td class="th_td_tags" style="background-color: lightgreen;">{{data}}%</td>
-                    {% elif forloop.counter0 == 7 and data >= -403.99 and data <= 20 %}
-                      <td class="th_td_tags" style="background-color: lightgreen;">{{data}}</td>  
-                    {% elif forloop.counter0 == 7 and data >= 20.001 and data <= 29.999 %}
-                      <td class="th_td_tags" style="background-color: #f2f277;">{{data}}</td>
-                    {% elif forloop.counter0 == 7 and data >= 30 %}
-                      <td class="th_td_tags" style="background-color: #e87777;">{{data}}</td>
-                    {% elif forloop.counter0 == 11 and data >= -403.99 and data <= 7 %}
-                      <td class="th_td_tags" style="background-color: #e87777;">{{data}}</td>  
-                    {% elif forloop.counter0 == 11 and data >= 7.001 and data <= 9.999 %}
-                      <td class="th_td_tags" style="background-color: #f2f277;">{{data}}</td>
-                    {% elif forloop.counter0 == 11 and data >= 10 %}
-                      <td class="th_td_tags" style="background-color: lightgreen;">{{data}}</td>
-                    {% elif forloop.counter0 == 12 and data >= -403.99 and data <= 15 %}
-                      <td class="th_td_tags" style="background-color: #e87777;">{{data}}</td>  
-                    {% elif forloop.counter0 == 12 and data >= 15.001 and data <= 19.999 %}
-                      <td class="th_td_tags" style="background-color: #f2f277;">{{data}}</td>
-                    {% elif forloop.counter0 == 12 and data >= 20 %}
-                      <td class="th_td_tags" style="background-color: lightgreen;">{{data}}</td>
-                    {% elif forloop.counter0 == 13 and data >= -403.99 and data <= 10 %}
-                      <td class="th_td_tags" style="background-color: #e87777;">{{data}}%</td>  
-                    {% elif forloop.counter0 == 13 and data >= 10.001 and data <= 19.999 %}
-                      <td class="th_td_tags" style="background-color: #f2f277;">{{data}}%</td>
-                    {% elif forloop.counter0 == 13 and data >= 20 %}
-                      <td class="th_td_tags" style="background-color: lightgreen;">{{data}}%</td>
-                    {% elif forloop.counter0 == 14 and data >= -403.99 and data <= 20 %}
-                      <td class="th_td_tags" style="background-color: #e87777;">{{data}}</td>  
-                    {% elif forloop.counter0 == 14 and data >= 20.001 and data <= 30 %}
-                      <td class="th_td_tags" style="background-color: #f2f277;">{{data}}</td>
-                    {% elif forloop.counter0 == 14 and data >= 30.001 %}
-                      <td class="th_td_tags" style="background-color: lightgreen;">{{data}}</td>
-                    {% elif forloop.counter0 == 15 and data >= -403.99 and data <= 3 %}
-                      <td class="th_td_tags" style="background-color: #e87777;">{{data}}</td>  
-                    {% elif forloop.counter0 == 15 and data >= 3.001 and data <= 4.999 %}
-                      <td class="th_td_tags" style="background-color: #f2f277;">{{data}}</td>
-                    {% elif forloop.counter0 == 15 and data >= 5 %}
-                      <td class="th_td_tags" style="background-color: lightgreen;">{{data}}</td>
-                    {% else %}
-                      <td class="th_td_tags">{{data}}</td>  
-                    {% endif %}
-                  {% endfor %}
-                </tr>
-              {% endfor %}
-            </table>
-          </div>
-          <button onclick="delete_tag()" class="button_table">Eliminar tag/s</button>
-        {% endif %}
-      <button onclick="window.location.href='/create_tag/'" class="button_table">Crear tag</button>
-      {% block content %}
-      {% endblock %}
-    </body>
+  <head>
+    <title>Financial analysis system</title>
+    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styles.css' %}"
+    />
+    <script src="{% static 'js/main.js' %}"></script>
+  </head>
+  <body>
+    {% if len_tags == 0 %}
+    <h2>
+      There are no tags saved in the system. Create new ones pressing the following button.
+    </h2>
+    {% else %}
+    <button class="update_button" onclick="update_tag()">
+      Update data from tag/s
+    </button>
+    <div class="dropdown_div">
+      <button class="dropdown_button" onclick="drop_down_content_categories()">
+        Press this button to visualize categories &#9660;
+      </button>
+      <div class="dropdown_button_content" id="dropdown_content">
+        <button onclick="visualize_category()" id="visualize_all_tags" class="visualize_all_tags">Visualize all tags</button>
+        {% for category in list_categories %}
+        <div class="button_category_container">
+          <button onclick="visualize_category()" id="{{category}}">{{category}}</button>
+          <button onclick="delete_category('{{category}}')">&#9003;</button>
+        </div>
+        {% endfor %}
+        <div class="button_category_container_add_new" id="add_new_categories_container">
+          <button id="dropdown_button_add_new" onclick="deploy_entry_field_category()">
+            Add new category
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <table class="table_tags">
+        <tr>
+          <th class="th_td_tags">
+            <button
+              class="button_select_all_tags"
+              onclick="select_all_checkboxes_tags()"
+            >
+              &#x2713;
+            </button>
+          </th>
+          {% for header_title in headers_title_list %}
+          <th
+            class="th_td_tags"
+            style="background-color: #4cae51; color: white; font-weight: bold"
+          >
+            {{header_title}}
+            <button
+              onclick="tag_ordering('{{header_title}}s')"
+              name="filters"
+              class="button_classify_filters"
+            >
+              &#8593;</button
+            ><button
+              onclick="tag_ordering('{{header_title}}i')"
+              name="filters"
+              class="button_classify_filters"
+            >
+              &#8595;
+            </button>
+          </th>
+          {% endfor %}
+        </tr>
+        {% for row_with_data in financial_data_tags %}
+        <tr>
+          <td class="th_td_tags">
+            <input
+              class="tags_checkboxes"
+              type="checkbox"
+              name="tags_checkboxes_values"
+              value="{{row_with_data.0}}"
+            />
+          </td>
+          {% for data in row_with_data %} 
+            {% if data == -404 %}
+            <td class="th_td_tags" style="background-color: #aeaeae">{{data}}</td>
+            {% elif forloop.counter0 == 2 and data >= -403.999 and data <= 0.999 %}
+            <td class="th_td_tags" style="background-color: lightgreen">
+              {{data}}
+            </td>
+            {% elif forloop.counter0 == 2 and data >= 1 and data <= 1.999 %}
+            <td class="th_td_tags" style="background-color: #f2f277">{{data}}</td>
+            {% elif forloop.counter0 == 2 and data >= 2 %}
+            <td class="th_td_tags" style="background-color: #e87777">{{data}}</td>
+            {% elif forloop.counter0 == 3 and data >= -403.999 and data <= 1 %}
+            <td class="th_td_tags" style="background-color: #e87777">
+              {{data}}%
+            </td>
+            {% elif forloop.counter0 == 3 and data >= 1.001 and data <= 4.999 %}
+            <td class="th_td_tags" style="background-color: #f2f277">
+              {{data}}%
+            </td>
+            {% elif forloop.counter0 == 3 and data >= 5 %}
+            <td class="th_td_tags" style="background-color: lightgreen">
+              {{data}}%
+            </td>
+            {% elif forloop.counter0 == 6 and data >= -403.999 and data <= 24.999 %}
+            <td class="th_td_tags" style="background-color: #e87777">
+              {{data}}%
+            </td>
+            {% elif forloop.counter0 == 6 and data >= 25 and data <= 49.999 %}
+            <td class="th_td_tags" style="background-color: #f2f277">
+              {{data}}%
+            </td>
+            {% elif forloop.counter0 == 6 and data >= 50 %}
+            <td class="th_td_tags" style="background-color: lightgreen">
+              {{data}}%
+            </td>
+            {% elif forloop.counter0 == 7 and data >= -403.99 and data <= 20 %}
+            <td class="th_td_tags" style="background-color: lightgreen">
+              {{data}}
+            </td>
+            {% elif forloop.counter0 == 7 and data >= 20.001 and data <= 29.999 %}
+            <td class="th_td_tags" style="background-color: #f2f277">{{data}}</td>
+            {% elif forloop.counter0 == 7 and data >= 30 %}
+            <td class="th_td_tags" style="background-color: #e87777">{{data}}</td>
+            {% elif forloop.counter0 == 11 and data >= -403.99 and data <= 7 %}
+            <td class="th_td_tags" style="background-color: #e87777">{{data}}</td>
+            {% elif forloop.counter0 == 11 and data >= 7.001 and data <= 9.999 %}
+            <td class="th_td_tags" style="background-color: #f2f277">{{data}}</td>
+            {% elif forloop.counter0 == 11 and data >= 10 %}
+            <td class="th_td_tags" style="background-color: lightgreen">
+              {{data}}
+            </td>
+            {% elif forloop.counter0 == 12 and data >= -403.99 and data <= 15 %}
+            <td class="th_td_tags" style="background-color: #e87777">{{data}}</td>
+            {% elif forloop.counter0 == 12 and data >= 15.001 and data <= 19.999 %}
+            <td class="th_td_tags" style="background-color: #f2f277">{{data}}</td>
+            {% elif forloop.counter0 == 12 and data >= 20 %}
+            <td class="th_td_tags" style="background-color: lightgreen">
+              {{data}}
+            </td>
+            {% elif forloop.counter0 == 13 and data >= -403.99 and data <= 10 %}
+            <td class="th_td_tags" style="background-color: #e87777">
+              {{data}}%
+            </td>
+            {% elif forloop.counter0 == 13 and data >= 10.001 and data <= 19.999 %}
+            <td class="th_td_tags" style="background-color: #f2f277">
+              {{data}}%
+            </td>
+            {% elif forloop.counter0 == 13 and data >= 20 %}
+            <td class="th_td_tags" style="background-color: lightgreen">
+              {{data}}%
+            </td>
+            {% elif forloop.counter0 == 14 and data >= -403.99 and data <= 20 %}
+            <td class="th_td_tags" style="background-color: #e87777">{{data}}</td>
+            {% elif forloop.counter0 == 14 and data >= 20.001 and data <= 30 %}
+            <td class="th_td_tags" style="background-color: #f2f277">{{data}}</td>
+            {% elif forloop.counter0 == 14 and data >= 30.001 %}
+            <td class="th_td_tags" style="background-color: lightgreen">
+              {{data}}
+            </td>
+            {% elif forloop.counter0 == 15 and data >= -403.99 and data <= 3 %}
+            <td class="th_td_tags" style="background-color: #e87777">{{data}}</td>
+            {% elif forloop.counter0 == 15 and data >= 3.001 and data <= 4.999 %}
+            <td class="th_td_tags" style="background-color: #f2f277">{{data}}</td>
+            {% elif forloop.counter0 == 15 and data >= 5 %}
+            <td class="th_td_tags" style="background-color: lightgreen">
+              {{data}}
+            </td>
+            {% else %}
+            <td class="th_td_tags">{{data}}</td>
+            {% endif %} 
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+      {% if current_category == 'visualize_all_tags' and len_tags != 0 %}
+        <button onclick="delete_tag()" class="button_table">
+          Delete tag/s
+        </button>
+      {% endif %}
+    {% endif %}
+    {% if current_category != 'visualize_all_tags' and len_tags != 0 %}
+      <button onclick="create_tag_url()" class="button_table">
+        Create a new tag and add it to the current category
+      </button>
+    {% else %}
+    <button onclick="create_tag_url()" class="button_table">
+      Create new tag/s
+    </button>
+    {% endif %}
+    {% if current_category == 'visualize_all_tags' and len_tags != 0 %}
+      <button onclick="add_tag_to_category_url()" class="button_table">
+        Add tag/s to a category
+      </button>
+    {% endif %}
+    {% if current_category != 'visualize_all_tags' %}
+      <button onclick="delete_tag_from_category()" class="button_table">
+        Delete tag/s from current category
+      </button>
+    {% endif %}
+    {% if current_category != 'visualize_all_tags' and len_categories > 1 %}
+      <button onclick="transfer_tag_between_categories_url()" class="button_table">
+        Transfer tag/s between categories
+      </button>
+    {% endif %}
+
+    {% block content %} {% endblock %}
+  </body>
 </html>
