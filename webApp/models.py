@@ -23,7 +23,7 @@ class Tag(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(primary_key=True, max_length=10)
+    name = models.CharField(primary_key=True, max_length=80)
     associated_tags = models.CharField(max_length=5000, default="[]")
 
     @property

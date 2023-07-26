@@ -117,29 +117,59 @@ function select_all_checkboxes_tags() {
 }
 
 function delete_tag() {
-  const options = document.querySelectorAll("input[type='checkbox']");
-  let at_least_one_selected = false;
-  var selected_tags = new Array();
-  options.forEach(function (option) {
-    if (option.checked) {
-      at_least_one_selected = true;
-      // Agrupar las tags seleccionadas
-      selected_tags.push(option.value);
-    }
-  });
+  const confirmation = confirm("Are you sure you want to delete this/these tag/tags?");
+  if(confirmation) {
 
-  if (!at_least_one_selected) {
-    alert("At least one tag must be selected. Try again");
-  } else {
+    const options = document.querySelectorAll("input[type='checkbox']");
+    let at_least_one_selected = false;
+    var selected_tags = new Array();
+    options.forEach(function (option) {
+      if (option.checked) {
+        at_least_one_selected = true;
+        // Agrupar las tags seleccionadas
+        selected_tags.push(option.value);
+      }
+    });
+
+    if (!at_least_one_selected) {
+      alert("At least one tag must be selected. Try again");
+    } else {
+      // Crear un objeto XMLHttpRequest
+      var xhr = new XMLHttpRequest();
+
+      // Definir la URL y el método de la solicitud
+      var url = "/delete_tag/";
+      var method = "POST";
+
+      // Convertir los datos a formato de cadena
+      var jsonData = JSON.stringify(selected_tags);
+
+      // Configurar la solicitud AJAX
+      xhr.open(method, url, true);
+      xhr.setRequestHeader("X-CSRFToken", get_cookie("csrftoken"));
+
+      // Enviar la solicitud con los datos
+      xhr.send(jsonData);
+      setTimeout(function () {
+        location.reload();
+      }, 100);
+    }
+  }
+}
+
+function delete_category(selected_category) {
+  const confirmation = confirm("Are you sure you want to delete this/these category/categories?");
+  if(confirmation) {
+
     // Crear un objeto XMLHttpRequest
     var xhr = new XMLHttpRequest();
 
     // Definir la URL y el método de la solicitud
-    var url = "/delete_tag/";
+    var url = "/delete_category/";
     var method = "POST";
 
     // Convertir los datos a formato de cadena
-    var jsonData = JSON.stringify(selected_tags);
+    var jsonData = JSON.stringify(selected_category);
 
     // Configurar la solicitud AJAX
     xhr.open(method, url, true);
@@ -148,31 +178,9 @@ function delete_tag() {
     // Enviar la solicitud con los datos
     xhr.send(jsonData);
     setTimeout(function () {
-      location.reload();
+        location.reload();
     }, 100);
   }
-}
-
-function delete_category(selected_category) {
-  // Crear un objeto XMLHttpRequest
-  var xhr = new XMLHttpRequest();
-
-  // Definir la URL y el método de la solicitud
-  var url = "/delete_category/";
-  var method = "POST";
-
-  // Convertir los datos a formato de cadena
-  var jsonData = JSON.stringify(selected_category);
-
-  // Configurar la solicitud AJAX
-  xhr.open(method, url, true);
-  xhr.setRequestHeader("X-CSRFToken", get_cookie("csrftoken"));
-
-  // Enviar la solicitud con los datos
-  xhr.send(jsonData);
-  setTimeout(function () {
-      location.reload();
-  }, 100);
 }
 
 function delete_tag_from_category() {
@@ -286,18 +294,18 @@ function update_tag() {
 }
 
 function create_tag_url(){
-  if(window.location.href == "https://gemejiar.pythonanywhere.com/create_tag/"){
+  if(window.location.href == "http://127.0.0.1:8000/create_tag/"){
     reload_main_page()
   }else{
-    window.location.replace("https://gemejiar.pythonanywhere.com/create_tag/");
+    window.location.replace("http://127.0.0.1:8000/create_tag/");
   }
 }
 
 function add_tag_to_category_url() {
-  if(window.location.href == "https://gemejiar.pythonanywhere.com/add_tag_to_category/"){
+  if(window.location.href == "http://127.0.0.1:8000/add_tag_to_category/"){
     reload_main_page()
   }else{
-    window.location.replace("https://gemejiar.pythonanywhere.com/add_tag_to_category/");
+    window.location.replace("http://127.0.0.1:8000/add_tag_to_category/");
   }
 }
 
@@ -364,10 +372,10 @@ function add_tag_to_category() {
 }
 
 function transfer_tag_between_categories_url() {
-  if(window.location.href == "https://gemejiar.pythonanywhere.com/transfer_tag_between_categories/"){
+  if(window.location.href == "http://127.0.0.1:8000/transfer_tag_between_categories/"){
     reload_main_page()
   }else{
-    window.location.replace("https://gemejiar.pythonanywhere.com/transfer_tag_between_categories/");
+    window.location.replace("http://127.0.0.1:8000/transfer_tag_between_categories/");
   }
 }
 
@@ -436,6 +444,6 @@ function transfer_tag_between_categories() {
 }
 
 function reload_main_page() {
-  const url = "https://gemejiar.pythonanywhere.com/";
-  window.location.replace("https://gemejiar.pythonanywhere.com/");
+  const url = "http://127.0.0.1:8000/";
+  window.location.replace("http://127.0.0.1:8000/");
 }
