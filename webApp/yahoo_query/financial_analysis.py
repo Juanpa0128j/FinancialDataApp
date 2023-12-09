@@ -139,16 +139,6 @@ def financeAnalisis(symbol):
 if __name__ == "__main__":
     tags = [
         "GOOGL",
-        "META",
-        "APR",
-        "MEDP",
-        "SFM",
-        "FRAGUAB",
-        "AEP",
-        "SDI",
-        "NA9",
-        "ULTA",
-        "METC",
     ]
 
     for tag in tags:
