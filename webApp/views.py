@@ -389,23 +389,30 @@ def create_tag(request):
                             if not (tag_already_saved):
                                 row_with_data = fn.financeAnalisis("".join(names_fixed))
                                 Database_handler.create_new_tag(row_with_data)
-                            selected_category_data = (
-                                Database_handler.consult_category_by_filter(
+
+                            if Auxiliar_class.category_selected != "visualize_all_tags":
+                                selected_category_data = Database_handler.consult_category_by_filter(
                                     Auxiliar_class.category_selected
                                 ).values_list()
-                            )
-                            selected_tags_string = selected_category_data[0][1]
-                            selected_tags = ast.literal_eval(selected_tags_string)
-                            tags_database_data = list(
-                                Database_handler.consult_tags_according_to_filter(
-                                    selected_tags
-                                ).values_list()
-                            )
+                                selected_tags_string = selected_category_data[0][1]
+                                selected_tags = ast.literal_eval(selected_tags_string)
+                                tags_database_data = list(
+                                    Database_handler.consult_tags_according_to_filter(
+                                        selected_tags
+                                    ).values_list()
+                                )
+                            else:
+                                tags_database_data = list(
+                                    Database_handler.consult_all_tags_saved().values_list()
+                                )
+
                             tag_already_saved = False
+
                             for saved_tags in tags_database_data:
                                 if "".join(names_fixed) == str(saved_tags[0]).upper():
                                     tag_already_saved = True
                                     break
+
                             if (
                                 Auxiliar_class.category_selected != "visualize_all_tags"
                                 and not (tag_already_saved)
@@ -415,18 +422,20 @@ def create_tag(request):
                                     "".join(names_fixed),
                                     "add",
                                 )
-                            selected_category_data = (
-                                Database_handler.consult_category_by_filter(
+                                selected_category_data = Database_handler.consult_category_by_filter(
                                     Auxiliar_class.category_selected
                                 ).values_list()
-                            )
-                            selected_tags_string = selected_category_data[0][1]
-                            selected_tags = ast.literal_eval(selected_tags_string)
-                            tags_database_data = list(
-                                Database_handler.consult_tags_according_to_filter(
-                                    selected_tags
-                                ).values_list()
-                            )
+                                selected_tags_string = selected_category_data[0][1]
+                                selected_tags = ast.literal_eval(selected_tags_string)
+                                tags_database_data = list(
+                                    Database_handler.consult_tags_according_to_filter(
+                                        selected_tags
+                                    ).values_list()
+                                )
+                            else:
+                                tags_database_data = list(
+                                    Database_handler.consult_all_tags_saved().values_list()
+                                )
                         names_fixed = []
                 if len(names_unfixed) == 0:
                     break
